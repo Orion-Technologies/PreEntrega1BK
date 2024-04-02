@@ -1,18 +1,20 @@
 {
-  "name": "desafio-3",
+  "name": "1erentrega",
   "version": "1.0.0",
-  "description": "Servidor EXPRESS Practica",
+  "description": "Backend e-commerce",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/app.js"
   },
-  "author": "abel.archila@gmail.com",
-  "license": "MIT",
+  "keywords": [],
+  "author": "abel.archila@gmai.com",
+  "license": "ISC",
   "dependencies": {
-    "express": "^4.18.3",
-    "prompt-sync": "^4.2.0"
+    "express": "^4.19.2",
+    "express-handlebars": "^7.1.2",
+    "socket.io": "^4.7.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
