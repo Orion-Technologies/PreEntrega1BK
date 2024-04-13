@@ -1,12 +1,12 @@
 [
   {
-    "title": "Audifonos Razer",
-    "description": "Audifonos Razer 5.1",
-    "price": 750,
+    "title": "Luces RGB LED",
+    "description": "Leces para decoracion RGB",
+    "price": 600,
     "thumbnail": "url",
-    "code": "ARZ5",
+    "code": "LCRGBLED",
     "stock": 10,
-    "category":"Juegos",
+    "category": "Iluminación",
     "status": true,
     "id": 1
   },
@@ -17,7 +17,7 @@
     "thumbnail": "url",
     "code": "GRBEE",
     "stock": 10,
-    "category":"Ropa",
+    "category": "Ropa",
     "status": true,
     "id": 2
   },
@@ -28,18 +28,18 @@
     "thumbnail": "url",
     "code": "TSDBZ",
     "stock": 18,
-    "category":"Ropa",
+    "category": "Ropa",
     "status": true,
     "id": 3
   },
   {
     "title": "T-Shirt",
-    "description": "T-Shirt Iron Maiden",
+    "description": "T-Shirt Rick and Martin",
     "price": 450,
     "thumbnail": "url",
-    "code": "TS2",
-    "stock": 15,
-    "category":"Ropa",
+    "code": "TSR&M",
+    "stock": 10,
+    "category": "Ropa",
     "status": true,
     "id": 4
   },
@@ -50,7 +50,7 @@
     "thumbnail": "url",
     "code": "JPS5MK",
     "stock": 15,
-    "category":"Juegos",
+    "category": "Juegos",
     "status": true,
     "id": 5
   },
@@ -61,7 +61,7 @@
     "thumbnail": "url",
     "code": "JPS5COD",
     "stock": 15,
-    "category":"Juegos",
+    "category": "Juegos",
     "status": true,
     "id": 6
   },
@@ -72,7 +72,7 @@
     "thumbnail": "url",
     "code": "MASUS4K",
     "stock": 8,
-    "category":"Juegos",
+    "category": "Juegos",
     "status": true,
     "id": 7
   }

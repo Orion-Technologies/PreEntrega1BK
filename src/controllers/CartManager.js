@@ -14,6 +14,7 @@ class CartManager {
 
   async initCartArray() {
     try {
+
       if (!fs.existsSync(this.path)) {
         await fs.promises.writeFile(this.path, "[]");
         console.log("El archivo de Cart fue creado");
@@ -30,6 +31,10 @@ class CartManager {
     }
   }
 
+  async saveCarts() {
+    await fs.promises.writeFile(this.path, JSON.stringify(this.carts, null, 2));
+  }
+
   async loadCarts() {
     try {
       const data = await fs.promises.readFile(this.path, "utf-8");
@@ -40,13 +45,9 @@ class CartManager {
         this.id = Math.max(...this.carts.map(cart => cart.id));
       }
     } catch (error) {
-      console.log("Error al crear los carritos");
+      console.log("Error al crear los carritos", error);
       await this.saveCarts();
     }
-  }
-
-  async saveCarts() {
-    await fs.promises.writeFile(this.path, JSON.stringify(this.carts, null, 2));
   }
 
   async makeCart() {

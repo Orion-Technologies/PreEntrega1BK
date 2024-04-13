@@ -6,9 +6,9 @@ const router = express.Router();
 //Importando la clase
 import ProductManager from "../controllers/ProductManager.js";
 //Creando la instancia de la clase
-const productManager = new ProductManager("./models/productos.json");
+const productManager = new ProductManager("./src/models/productos.json");
 
-router.get("/products/", async (req, res) => {
+router.get("/products", async (req, res) => {
     try {
         const products = await productManager.getProducts();
         let limit = parseInt(req.query.limit);
@@ -44,7 +44,7 @@ router.get("/products/:pid", async (req, res) => {
     }
 });
 
-router.post("/products/", async (req, res) => {
+router.post("/products", async (req, res) => {
     const newProduct = req.body;
     try {
         await productManager.addProduct(newProduct);

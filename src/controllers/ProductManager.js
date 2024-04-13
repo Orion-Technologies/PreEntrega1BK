@@ -38,7 +38,7 @@ class ProductManager {
       this.products = JSON.parse(readProductFromJSON);
 
       //objeto desestructurado (extrayendo las propiedades de newProduct)
-      let { title, description, price, thumbnail, code, stock, category, status } = newProduct;
+      let { title, description, price, img, code, stock, category, status, thumbnail } = newProduct;
 
       const codeValidation = (productCode) => productCode.code === code;
       if (this.products.some(codeValidation)) {

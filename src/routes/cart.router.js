@@ -7,7 +7,7 @@ const router = express.Router();
 //Importando la clase
 import CartManager from "../controllers/CartManager.js";
 // Creando la instancia de la clase
-const cartManager = new CartManager("./models/carritos.json");
+const cartManager = new CartManager("./src/models/carritos.json");
 
 router.post("/carts/", async (req, res) => {
     try {
