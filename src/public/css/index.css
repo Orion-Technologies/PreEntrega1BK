@@ -1,0 +1,58 @@
+body {
+    background-color: rgb(225, 225, 225);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: rgb(219, 219, 219);
+}
+
+.formulario {
+    display: flex;
+    margin: 5rem;
+    justify-content: center;
+}
+
+form {
+    background-color: #1772fc;
+    padding: 15px;
+    border-radius: 11px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    width: 350px;
+}
+
+form input {
+    padding: 3px 5px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    margin-left: 3px;
+    border-style: inset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+}
+
+.card-text {
+    color: black;
+}
+
+h1 {
+    color: black;
+}
+
+h2 {
+    color: #000;
+}
+
+p {
+    color: black;
+}
+
+.botonLogin {
+    border-radius: 8px;
+    width: 150px;
+}
+
+.botonRegister {
+    border-radius: 8px;
+    width: 150px;
+}

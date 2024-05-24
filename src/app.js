@@ -1,73 +1,84 @@
-//importando la dependencia
-//const express = require('express');
-import express from 'express';
+//app.js
+
+import express from "express";
+import exphbs from "express-handlebars";
+import { Server } from 'socket.io';
+import "./database.js";
+import cartsRouter from "./routes/carts.router.js";
+import productsRouter from "./routes/products.router.js";
+import viewsRouter from "./routes/views.router.js"
+import MessageModel from "./models/mesagge.model.js";
+import MongoStore from "connect-mongo";
+import session from "express-session";
+import userRouter from "./routes/user.router.js";
+import sessionRouter from "./routes/session.router.js";
+import passport from "passport";
+import initializePassport from "./config/passport.config.js";
+import cookieParser from "cookie-parser";
+
 const app = express();
 const PUERTO = 8080;
-import exphbs from 'express-handlebars';
-//import socket from 'socket.io';
-import {createServer} from 'http'; // Importando createServer de http
-import {Server} from 'socket.io';
-//Vinculando rutas:
-import productsRouter from "./routes/products.router.js";
-import cartsRouter from "./routes/cart.router.js";
-import viewsRouter from "./routes/views.router.js";
-import ProductManager from './controllers/ProductManager.js';
-
-//* Asignando la funcion express a app
-
-//const httpServer = createServer() // Crea un servidor HTTP con Express
-
-
-//** Asignando el numero de puerto a una constante */
-
 
 //Middleware
-// Travajar con datos complejos
-app.use(express.urlencoded({extended:true}));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+//nuevo
+app.use(cookieParser());
 app.use(express.static("./src/public"));
+//Session
+app.use(session({
+  store:MongoStore.create({
+    mongoUrl:"mongodb+srv://abelarchila:BlackBelt7008@backend.j4hzu56.mongodb.net/e-commerce?retryWrites=true&w=majority&appName=BackEnd",
+    ttl:100,
+  }),
+  secret:"secretCoder",
+  resave: true, 
+  saveUninitialized:true,   
+}))
+//Cambios passport: 
+app.use(passport.initialize());
+app.use(passport.session());
+initializePassport(); 
 
-//configurando Handlebars
+
+//Handlebars
 app.engine("handlebars", exphbs.engine());
 app.set("view engine", "handlebars");
 app.set("views", "./src/views");
 
-//* productsRouter trae la ruta /api/products
-app.use("/api", productsRouter);
-app.use("/api", cartsRouter);
+//Rutas: 
+app.use("/api/products", productsRouter);
+app.use("/api/carts", cartsRouter);
+app.use("/api/users", userRouter);
+app.use("/api/sessions", sessionRouter);
 app.use("/", viewsRouter);
+//nuevo
+app.use("/", userRouter);
 
-/*
-app.get("/", (request, response) => {
-    response.send("Probando el servidor");
-});
-*/
 
+
+
+//Listen
 const httpServer = app.listen(PUERTO, () => {
-    console.log(`Escuchando en el puerto http//locarhost:${PUERTO}`);
+    console.log(`Escuchando en el puerto: ${PUERTO}`);
 })
 
-const io = new Server(httpServer); // creando una instancia de Server de Socket.io
+// chat en el ecommerce: 
 
-//obtengo el array de productos
-const productManager = new ProductManager("src/models/productos.json");
+const io = new Server(httpServer);
 
-io.on("connection", async(socket) => {
-    console.log("Un cliente conectado");
+io.on("connection",  (socket) => {
+  console.log("Nuevo usuario conectado");
 
-    //Enviamos el array de productos al cliente:
-    socket.emit("productos", await productManager.getProducts());
+  socket.on("message", async (data) => {
 
-    //Recibimos el evento "delete" desde el cliente
-    socket.on("eliminarProducto", async (id) => {
-        await productManager.deleteProduct(id);
-        //eviamos el array de productos actualizados
-        socket.emit("productos", await productManager.getProducts());
-    })
-
-    //recibimos el evento "agregarProductos" desde el cliente
-    socket.on("agregarProducto", async (producto) => {
-        await productManager.addProduct(producto);
-        socket.emit("productos", await productManager.getProducts());
-    })
+      //Guardo el mensaje en MongoDB: 
+      await MessageModel.create(data);
+console.log("Mensaje recibido", data)
+      //Obtengo los mensajes de MongoDB y se los paso al cliente: 
+      const messages = await MessageModel.find();
+      console.log(messages);
+      io.sockets.emit("messagesLogs", messages);
+   
+  })
 })

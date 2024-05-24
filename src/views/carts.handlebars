@@ -1,0 +1,14 @@
+<h1>Carrito de Compras</h1>
+
+{{#each productos}}
+<div>
+    <p>Producto: {{this.product.title}}</p>
+    <div class="mb-2 text-muted card-subtitle h6">
+        <p>Precio: ${{this.price}}</p>
+    </div>
+    <p>Cantidad: {{this.quantity}}</p>
+    <img src="{{this.thumbnail.[0]}}" class="thumbnail" alt="Thumbnail"
+        style="max-width: 10rem; max-height: 10rem; object-fit: contain;">
+
+</div>
+{{/each}}
